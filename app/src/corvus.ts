@@ -2,6 +2,7 @@
 var program = require('commander')
 var tasker = require('./tasker')
 var json = require('../package.json')
+import * as chalk from 'chalk'
 
 program
   .version(json.version)
@@ -20,7 +21,7 @@ program
   .alias('c')
   .description('Check dependencies.')
   .action(() => {
-    console.log('working')
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
   })
 
 program
@@ -28,7 +29,7 @@ program
   .alias('i')
   .description('Install dependencies.')
   .action(() => {
-    // TODO
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
   })
 
 program
@@ -36,7 +37,7 @@ program
   .alias('g')
   .description('Scaffolding')
   .action(() => {
-    // TODO
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
   })
 
 program
@@ -44,14 +45,14 @@ program
   .alias('r')
   .description('Revert to initial creation')
   .action(() => {
-    // TODO
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
   })
 
 program
   .command('<command>')
   .description('Git functionality')
   .action(() => {
-    // TODO
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
   })
 
 program
@@ -77,7 +78,8 @@ program
         break;
     }
 
-    console.log("Added",`\n{\n    "${name}":"${val}",\n} \n as ${t}`)
+    // console.log("Added",`\n{\n    "${name}":"${val}",\n} \n as ${t}`)
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
   })
 
 program.parse(process.argv)
