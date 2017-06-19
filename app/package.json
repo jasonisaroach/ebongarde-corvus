@@ -1,0 +1,21 @@
+{
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "description": "<%= description %>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/<%= user %>/<%= name %>.git"
+  },
+  "main": "null",
+  "keywords": [
+    "electron",
+    "desktop",
+    "application",
+    "framework",
+    "corvus",
+    "ebongarde"
+  ],
+  "author": "<%= author %>",
+  "license": "<%= license %>",
+  "preferGlobal": false
+}
