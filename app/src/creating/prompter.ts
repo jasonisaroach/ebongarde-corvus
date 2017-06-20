@@ -2,11 +2,7 @@ import * as inquirer from 'inquirer'
 import * as chalk from 'chalk'
 import * as _ from 'underscore.string'
 
-interface IPrompter {
-  name: any
-  options: any
-}
-export default class Prompter implements IPrompter {
+export default class Prompter{
   name: any
   options: any
 
@@ -74,7 +70,7 @@ export default class Prompter implements IPrompter {
 
   prompt(callback:any) {
     console.log(' ')
-    console.log('  Hello, I\'m', chalk.cyan('CORVUS'), '!')
+    console.log('  Hello, I\'m', chalk.cyan('CORVUS') + '!')
     console.log('  You\'re about to start a new', chalk.cyan('CORVUS'), 'application,')
     console.log('  but first allow me to ask some questions.')
     console.log(' ')

@@ -9,20 +9,27 @@ var json = require('../../package.json')
 
 var $ = path.join
 
+
 function mkdir() {
   return fs.mkdirSync($.apply(this, arguments))
 }
 
-export default class Generator {
+export default class Creator {
   readonly name: string
   readonly options: any
-
+  /**
+   * Builds the function to handle new projects
+   * @param name The name of the project
+   * @param options The options that define the new application
+   */
   constructor(name: string, options?: any) {
     this.name = _.underscored(name)
-    this.defaults.name = _.classify(name)
+    this.defaults.name = name.toLowerCase()
     this.options = options
   }
-
+  /**
+   * The default settings for a CORVUS application
+   */
   defaults = {
     name: 'corvusapp',
     version: '0.1.0',
@@ -36,7 +43,7 @@ export default class Generator {
   /**
    * Generate a new application and prompt the user
    */
-  generate() {
+  newApp() {
     var self = this
     var Prompter = require('./prompter')
     var prompter = new Prompter({name: this.defaults.name})
@@ -64,7 +71,6 @@ export default class Generator {
    */
   create() {
     mkdir(this.name)
-    // mkdir(this.name, 'app')
   }
   /**
    * Copy all files and fill in the data
@@ -77,7 +83,7 @@ export default class Generator {
    */
   link() {
     console.log('  Linking', chalk.cyan('myself') + ' to your application')
-    childProcess.spawnSync('npm', [ 'link', 'bozon' ], {
+    childProcess.spawnSync('npm', [ 'link', 'corvus' ], {
       cwd: './' + this.name,
       shell: true
     })
@@ -109,4 +115,4 @@ export default class Generator {
     console.log('  ', chalk.green('create'), dest)
   }
 }
-module.exports = Generator
+module.exports = Creator

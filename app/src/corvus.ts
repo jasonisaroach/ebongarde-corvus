@@ -20,40 +20,31 @@ program
   .command('check')
   .alias('c')
   .description('Check dependencies.')
-  .action(() => {
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
-  })
+  .action(() => console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('check'), 'is not yet ready for usage.'))
 
 program
   .command('install')
   .alias('i')
   .description('Install dependencies.')
-  .action(() => {
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
-  })
+  .action(() => console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('install'), 'is not yet ready for usage.'))
 
 program
   .command('generate <type> [attribute]')
   .alias('g')
   .description('Scaffolding')
-  .action(() => {
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
-  })
+  .action(() => console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('generate'), 'is not yet ready for usage.'))
 
 program
   .command('revert')
   .alias('r')
   .description('Revert to initial creation')
-  .action(() => {
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
-  })
+  .action(() => console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('revert'), 'is not yet ready for usage.'))
 
 program
-  .command('<command>')
-  .description('Git functionality')
-  .action(() => {
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
-  })
+  .command('p <command>')
+  .alias('ps')
+  .description('Git push')
+  .action((command:string) => console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold(command), 'is not yet ready for usage.'))
 
 program
   .command('add <name> <type> <val>')
@@ -79,7 +70,7 @@ program
     }
 
     // console.log("Added",`\n{\n    "${name}":"${val}",\n} \n as ${t}`)
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), ' This command is not yet ready for usage.')
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('add'), 'is not yet ready for usage.')
   })
 
 program.parse(process.argv)

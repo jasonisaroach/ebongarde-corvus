@@ -1,8 +1,8 @@
-var Generator = require("./scaffolding/generator");
+var Creator = require("./creating/creator");
 
 var tasker:any = {
   new: function (name:string) {
-    new Generator(name).generate()
+    new Creator(name).newApp()
   }
 }
 

@@ -1,0 +1,21 @@
+{
+  "name": "Test",
+  "version": "0.0.0",
+  "description": "An intriging application.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JohnDoe/Test.git"
+  },
+  "main": "null",
+  "keywords": [
+    "electron",
+    "desktop",
+    "application",
+    "framework",
+    "corvus",
+    "ebongarde"
+  ],
+  "author": "John Doe &lt;johndoe@gmail.com&gt;",
+  "license": "MIT",
+  "preferGlobal": false
+}

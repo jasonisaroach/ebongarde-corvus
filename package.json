@@ -6,6 +6,10 @@
     "type": "git",
     "url": "https://github.com/TheGrimSilence/corvus.git"
   },
+  "scripts": {
+    "publish": "npm version preminor",
+    "compile": "tsc -w"
+  },
   "main": "out",
   "keywords": [
     "electron",

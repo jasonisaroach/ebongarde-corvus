@@ -1,8 +1,8 @@
 "use strict";
-var Generator = require("./scaffolding/generator");
+var Creator = require("./creating/creator");
 var tasker = {
     new: function (name) {
-        new Generator(name).generate();
+        new Creator(name).newApp();
     }
 };
 module.exports = tasker;
