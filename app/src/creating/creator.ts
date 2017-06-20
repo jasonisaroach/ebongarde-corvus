@@ -31,13 +31,41 @@ export default class Creator {
    * The default settings for a CORVUS application
    */
   defaults = {
+    /**
+     * The name of the new application
+     */
     name: 'corvusapp',
-    version: '0.1.0',
-    description: 'A Corvus application',
-    user: 'TheGrimSilence',
+    /**
+     * The given author name of the new application
+     */
     author: 'Adrian Roach',
+    /**
+     * The given author email of the new application
+     */
+    email: 'adrianroach@ebongarde.com',
+    /**
+     * The GitHub account given by the user
+     */
+    user: 'TheGrimSilence',
+    /**
+     * The starting version given by the user
+     */
+    version: '0.1.0',
+    /**
+     * The descritpion for the new application
+     */
+    description: 'A Corvus application',
+    /**
+     * The license chosen by user for the new application
+     */
     license: 'MIT',
+    /**
+     * The current year, used for license creation
+     */
     year: (new Date()).getFullYear(),
+    /**
+     * The current CORVUS operating version
+     */
     corvusVersion: json.version
   }
   /**
@@ -48,11 +76,12 @@ export default class Creator {
     var Prompter = require('./prompter')
     var prompter = new Prompter({name: this.defaults.name})
     prompter.prompt(function (answers:any) {
-      self.defaults.name = _.classify(answers.name)
+      self.defaults.name = answers.name.toLowerCase()
+      self.defaults.author = answers.author
+      self.defaults.email = answers.email
+      self.defaults.user = answers.user
       self.defaults.version = answers.version
       self.defaults.description = answers.description
-      self.defaults.user = answers.user
-      self.defaults.author = answers.author
       self.defaults.license = answers.license
       self.setup()
     })
@@ -77,6 +106,7 @@ export default class Creator {
    */
   copy() {
     this.copyTpl($('package.json'), 'package.json', this.defaults)
+    this.copyTpl($('licenses', this.defaults.license), 'LICENSE', this.defaults)
   }
   /**
    * Allow CORVUS to link himself to the project

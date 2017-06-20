@@ -24,9 +24,17 @@ export default class Prompter{
         type: 'input',
         name: 'author',
         message: 'Who would you like to add as the author?',
-        default: 'John Doe <johndoe@gmail.com>',
+        default: 'John Doe',
         validate: function (value: any) {
           return _.isBlank(value) ? 'I need you to give me a name for the author' : true
+        }
+      }, {
+        type: 'input',
+        name: 'email',
+        message: 'What would you like to add as the author email?',
+        default: 'johndoe@gmail.com',
+        validate: function (value: any) {
+          return _.isBlank(value) ? 'I need you to give me an email for the author' : true
         }
       }, {
         type: 'input',
@@ -58,8 +66,36 @@ export default class Prompter{
         message: 'What license would you like to use?',
         default: 'MIT',
         choices: [
+          'AFL-3.0',
+          'AGPL-3.0',
+          'Apache-2.0',
+          'Artistic-2.0',
+          'BSD-2-Clause',
+          'BSD-3-Clause',
+          'BSD-3-Clause-Clear',
+          'BSL-1.0',
+          'CC-BY-4.0',
+          'CC-BY-SA-4.0',
+          'CC0-1.0',
+          'ECL-2.0',
+          'EPL-1.0',
+          'EUPL-1.1',
+          'GPL-2.0',
+          'GPL-3.0',
+          'ISC',
+          'LGP2.1',
+          'LGPL-3.0',
+          'LPPL-1.3C',
           'MIT',
-          'ISC'
+          'MPL-2.0',
+          'MS-PL',
+          'MS-RL',
+          'NCSA',
+          'OFL-1.1',
+          'OSL-3.0',
+          'Unlicense',
+          'WTFPL',
+          'ZLIB',
         ],
         validate: function (value: any) {
           return _.isBlank(value) ? 'I need you to choose a license for this new app' : true

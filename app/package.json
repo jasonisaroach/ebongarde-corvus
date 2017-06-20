@@ -15,7 +15,7 @@
     "corvus",
     "ebongarde"
   ],
-  "author": "<%= author %>",
+  "author": "<%= author %> (<%= email %>)",
   "license": "<%= license %>",
   "preferGlobal": false
 }
