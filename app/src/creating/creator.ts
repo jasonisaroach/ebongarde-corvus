@@ -1,5 +1,6 @@
 import * as path from 'path'
 import * as childProcess from 'child_process'
+import * as process from 'process'
 import * as chalk from 'chalk'
 import * as ejs from 'ejs'
 import * as fs from 'fs'
@@ -94,12 +95,15 @@ export default class Creator {
     this.copy()
     this.link()
     this.install()
+    console.log('\n' + chalk.cyan.bold('  CORVUS'), chalk.yellow.bold('INFO'), 'You\'ll have to',chalk.green.bold('cd'),`into your application manually and then call me from there. See you there, ${this.defaults.author}!`,chalk.magenta.bold(':)'))
   }
   /**
    * Create the app structure
    */
   create() {
+    console.log(' ', chalk.cyan.bold('CORVUS'), chalk.green.bold('CREATE'), `${this.name}/`)
     mkdir(this.name)
+    // fs.mkdirSync($.apply(this.name))
   }
   /**
    * Copy all files and fill in the data
@@ -112,7 +116,7 @@ export default class Creator {
    * Allow CORVUS to link himself to the project
    */
   link() {
-    console.log('  Linking', chalk.cyan('myself') + ' to your application')
+    console.log(' ', chalk.cyan.bold('CORVUS'), chalk.green.bold('ATTACH'), this.defaults.name)
     childProcess.spawnSync('npm', [ 'link', 'corvus' ], {
       cwd: './' + this.name,
       shell: true
@@ -122,7 +126,7 @@ export default class Creator {
    * Let CORVUS install the new application's dependencies (if any)
    */
   install() {
-    console.log('  Installing', chalk.cyan('packages'))
+    console.log(' ', chalk.cyan.bold('CORVUS'), chalk.green.bold('INSTALL'), 'packages')
     childProcess.spawnSync('npm', [ 'install' ], {
       cwd: './' + this.name,
       shell: true,
@@ -142,7 +146,7 @@ export default class Creator {
     var str = fs.readFileSync(template, 'utf8')
 
     fs.writeFileSync(destination, ejs.render(str, data))
-    console.log('  ', chalk.green('create'), dest)
+    console.log(' ', chalk.cyan.bold('CORVUS'), chalk.green.bold('WRITE'), dest)
   }
 }
 module.exports = Creator
