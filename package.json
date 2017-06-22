@@ -20,7 +20,7 @@
     "ebongarde"
   ],
   "author": "Adrian Roach <adrianroach@ebongarde.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "preferGlobal": true,
   "engines": {
     "node": "^7.4.1",
