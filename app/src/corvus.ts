@@ -20,37 +20,56 @@ program
   .command('check')
   .alias('c')
   .description('Check dependencies.')
-  .action(() => console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('check'), 'is not yet ready for usage.'))
+  .action(() => {
+    tasker.check()
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('check'), 'is not yet ready for usage.')
+  })
 
 program
   .command('install')
   .alias('i')
   .description('Install dependencies.')
-  .action(() => console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('install'), 'is not yet ready for usage.'))
+  .action(() => {
+    tasker.install()
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('install'), 'is not yet ready for usage.')
+  })
 
 program
-  .command('generate <type> [attribute]')
+  .command('generate <type> [frameworks...]')
   .alias('g')
   .description('Scaffolding')
-  .action(() => console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('generate'), 'is not yet ready for usage.'))
+  .action((type:string, frameworks: string[]) => {
+    tasker.generate(type, frameworks)
+    if (frameworks) {
+      frameworks.forEach(function (framework) {
+        console.log(framework);
+      });
+    }
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('generate'), 'is not yet ready for usage.')
+  })
 
 program
   .command('revert')
   .alias('r')
   .description('Revert to initial creation')
-  .action(() => console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('revert'), 'is not yet ready for usage.'))
+  .action(() => {
+    tasker.revert()
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('revert'), 'is not yet ready for usage.')
+  })
 
 program
   .command('p <command>')
-  .alias('ps')
   .description('Git push')
-  .action((command:string) => console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold(command), 'is not yet ready for usage.'))
+  .action((command:string) => {
+    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold(command), 'is not yet ready for usage.')
+  })
 
 program
   .command('add <name> <type> <val>')
   .alias('a')
   .description('Add a new field')
   .action((name:string, type:string, val:string) => {
+    tasker.add(name, type, val)
     var t;
     
     switch (type) {
@@ -75,4 +94,6 @@ program
 
 program.parse(process.argv)
 
-// node script/corvus a newName obj "Corvus"
+if (!process.argv.slice(2).length) {
+  program.outputHelp()
+}

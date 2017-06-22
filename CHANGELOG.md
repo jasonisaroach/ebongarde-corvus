@@ -5,6 +5,7 @@
 # v0.3.2-0 (2017.6.19)
   - `NEW` - Support for all Open Source Licenses from GitHub
   - `IMPROVED` - Email support in initial project creation
+  - `IMPROVED` - Type `corvus` to see all options
   - `REMOVED` - Empty files
   - `UPDATED` - Began prereleases
   - `FIXED` - CORVUS not telling the user when a command is nto yet ready

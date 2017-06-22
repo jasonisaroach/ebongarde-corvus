@@ -4,7 +4,7 @@
   "description": "An AIO (all-in-one) project creator!",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TheGrimSilence/corvus.git"
+    "url": "https://github.com/Ebongarde/corvus.git"
   },
   "scripts": {
     "postpublish": "npm version minor",
