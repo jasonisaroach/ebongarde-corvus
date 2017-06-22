@@ -1,12 +1,14 @@
 # Corvus
-An AIO (all-in-one) project creator!
+An AIO (all-in-one) project creator! 
+
+***Warning: Corvus will not recognize all commands as he is still under development. He should give an `Err!` for commands not yet implemented.***
 
 The Common Offline Real Time Virtual User Shell
 <!-- TOC -->
 
 - [Corvus](#corvus)
   - [Scaffolding](#scaffolding)
-    - [Commands](#commands)
+    - [Plannded Commands](#plannded-commands)
     - [Electron](#electron)
     - [Website](#website)
     - [Ionic](#ionic)
@@ -16,7 +18,7 @@ The Common Offline Real Time Virtual User Shell
 ## Scaffolding
 The following can be created depending on your project by telling Corvus to generate them via `corvus g` keep in mind many of these scaffolds are not compatible with each other.
 
-### Commands
+### Plannded Commands
 |Type|Usage|Attributes|Description|
 |----|-----|----------|-----------|
 |[Electron](#electron)|corvus **g** *electron*|*Tray*, \< js & css frameworks \>|Tell Corvus to `generate` an Electron based structure|
