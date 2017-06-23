@@ -5,10 +5,20 @@ import * as chalk from 'chalk'
 import * as ejs from 'ejs'
 import * as fs from 'fs'
 import * as _ from 'underscore.string'
+var ROOT = require('ebongarde-root')
+// var mkdir =  require('folder-structure-generator')
+var main = path.join(ROOT, '')
 
 var json = require('../../package.json')
 
 var $ = path.join
+
+var dateObj = new Date();
+var month = dateObj.getUTCMonth() + 1; //months from 1-12
+var day = dateObj.getUTCDate();
+var year = dateObj.getUTCFullYear();
+
+var newdate = year + "/" + month + "/" + day;
 
 
 function mkdir() {
@@ -24,7 +34,7 @@ export default class Creator {
    * @param options The options that define the new application
    */
   constructor(name: string, options?: any) {
-    this.name = _.underscored(name)
+    this.name = _.slugify(name) && (name).toLowerCase()
     this.defaults.name = name.toLowerCase()
     this.options = options
   }
@@ -95,13 +105,15 @@ export default class Creator {
     this.copy()
     this.link()
     this.install()
-    console.log('\n' + chalk.cyan.bold('  CORVUS'), chalk.yellow.bold('INFO'), 'You\'ll have to',chalk.green.bold('cd'),`into your application manually and then call me from there. See you there, ${this.defaults.author}!`,chalk.magenta.bold(':)'))
+    var author = _.words(this.defaults.author)
+    console.log('\n' + chalk.cyan.bold('  CORVUS'), chalk.yellow.bold('INFO'), 'You\'ll have to',chalk.green.bold('cd'),`into your application manually and then call me from there. See you there, ${chalk.green(author[0])}!`,chalk.magenta.bold(':)'))
   }
   /**
    * Create the app structure
    */
   create() {
     console.log(' ', chalk.cyan.bold('CORVUS'), chalk.green.bold('CREATE'), `${this.name}/`)
+
     mkdir(this.name)
     // fs.mkdirSync($.apply(this.name))
   }
@@ -109,7 +121,7 @@ export default class Creator {
    * Copy all files and fill in the data
    */
   copy() {
-    this.copyTpl($('package.json'), 'package.json', this.defaults)
+    this.copyTpl('package.json', 'package.json', this.defaults)
     this.copyTpl($('licenses', this.defaults.license), 'LICENSE', this.defaults)
   }
   /**
@@ -141,7 +153,7 @@ export default class Creator {
    */
   copyTpl(src?:any, dest?:any, data?:any) {
     if (typeof data === 'undefined') { data = {} }
-    var template = $(__dirname, '../..', 'app', src)
+    var template = $(ROOT, 'app', 'templates', src)
     var destination = $(process.cwd(), this.name, dest)
     var str = fs.readFileSync(template, 'utf8')
 

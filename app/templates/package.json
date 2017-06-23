@@ -17,5 +17,8 @@
   ],
   "author": "<%= author %> (<%= email %>)",
   "license": "<%= license %>",
-  "preferGlobal": false
+  "preferGlobal": false,
+  "dependencies": {
+    "ebongarde-root": "^1.0.0"
+  }
 }

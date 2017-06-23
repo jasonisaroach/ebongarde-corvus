@@ -1,4 +1,6 @@
 # Corvus
+[![npm](https://img.shields.io/npm/dt/ebongarde-corvus.svg?style=flat-square)](https://www.npmjs.com/package/ebongarde-corvus) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/ebongarde-corvus)
+
 An AIO (all-in-one) project creator! 
 
 ***Warning: Corvus will not recognize all commands as he is still under development. He should give an `Err!` for commands not yet implemented.***
