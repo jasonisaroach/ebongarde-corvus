@@ -104,7 +104,7 @@ export default class Prompt {
     ]
   }
 
-  promt(callback:any) {
+  prompt(callback:any) {
     console.log(' ')
     console.log('  Hello, I\'m', chalk.cyan('CORVUS') + '!')
     console.log('  You\'re about to start a new', chalk.cyan('CORVUS'), 'application,')

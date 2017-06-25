@@ -44,7 +44,6 @@
     "@types/chalk": "^0.4.31",
     "@types/ejs": "^2.3.33",
     "@types/node": "^7.0.31",
-    "@types/underscore.string": "0.0.30",
-    "tsc": "^1.20150623.0"
+    "@types/underscore.string": "0.0.30"
   }
 }

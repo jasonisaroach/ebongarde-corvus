@@ -7,6 +7,8 @@
   - `IMPROVED` - Added `downloads` and `npm` badges
   - `IMPROVED` - CORVUS can now say your name when needed (*or wanted*) ;)!
   - `IMPROVED` - Moved license template files into a templates directory
+  - `FIXED` - TSC causing errors when running `npm i`
+  - `FIXED` - Fixed minor typos in project
 
 # v0.3.2 (2017.6.19)
   - `NEW` - Added support for all Open Source Licenses from GitHub

@@ -7,7 +7,6 @@ import * as fs from 'fs'
 import * as _ from 'underscore.string'
 import * as ROOT from 'ebongarde-root'
 
-
 var $ = path.join
 var json = require($(ROOT, 'package.json'))
 
@@ -15,7 +14,6 @@ var dateObj = new Date()
 var month = dateObj.getUTCMonth() + 1
 var day = dateObj.getUTCDate()
 var year = dateObj.getUTCFullYear()
-
 var currentDate = year + '.' + month + '.' + day
 
 function mkdir() {
@@ -114,7 +112,6 @@ export default class Creator {
     console.log(' ', chalk.cyan.bold('CORVUS'), chalk.green.bold('CREATE'), `${this.name}/`)
 
     mkdir(this.name)
-    // fs.mkdirSync($.apply(this.name))
   }
   /**
    * Copy all files and fill in the data
