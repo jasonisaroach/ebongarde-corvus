@@ -2,4 +2,4 @@
 - Ensure changes descend
 - Use `NEW`, `IMPROVED`, `REMOVED`, `UPDATED`, `FIXED` tags
 
-# v<%= version %>
+# v<%= version %> (<%= today %>)

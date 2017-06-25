@@ -1,19 +1,19 @@
 'use strict'
 var program = require('commander')
-var tasker = require('./tasker')
+var task = require('./task')
 var json = require('../package.json')
 import * as chalk from 'chalk'
 
 program
   .version(json.version)
-  .usage('[options]')
+  .usage('<command> [options]')
 
 program
   .command('new <name>')
   .alias('n')
   .description('Create a new project.')
   .action((name:string) => {
-    tasker.new(name)
+    task.new(name)
   })
 
 program
@@ -21,8 +21,8 @@ program
   .alias('c')
   .description('Check dependencies.')
   .action(() => {
-    tasker.check()
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('check'), 'is not yet ready for usage.')
+    // task.check()
+    console.error(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('check'), 'is not yet ready for usage.')
   })
 
 program
@@ -30,7 +30,7 @@ program
   .alias('i')
   .description('Install dependencies.')
   .action(() => {
-    tasker.install()
+    task.install()
     console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('install'), 'is not yet ready for usage.')
   })
 
@@ -39,10 +39,10 @@ program
   .alias('g')
   .description('Scaffolding')
   .action((type:string, frameworks: string[]) => {
-    tasker.generate(type, frameworks)
+    task.generate(type, frameworks)
     if (frameworks) {
-      frameworks.forEach(function (framework) {
-        console.log(framework);
+      frameworks.forEach(framework => {
+        console.log('<script src="https://test.'+framework+'.com">');
       });
     }
     console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('generate'), 'is not yet ready for usage.')
@@ -53,7 +53,7 @@ program
   .alias('r')
   .description('Revert to initial creation')
   .action(() => {
-    tasker.revert()
+    task.revert()
     console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('revert'), 'is not yet ready for usage.')
   })
 
@@ -65,30 +65,13 @@ program
   })
 
 program
-  .command('add <name> <type> <val>')
+  .command('add <type>')
   .alias('a')
   .description('Add a new field')
-  .action((name:string, type:string, val:string) => {
-    tasker.add(name, type, val)
-    var t;
+  .action((type:string) => {
     
-    switch (type) {
-      case "str"||"string":
-        t = "string"
-        break;
-      
-      case "obj"||"object":
-        t = "object"
-        break;
+    task.add(type)
 
-      case "arr"||"array":
-        t = "string"
-        break;
-      default:
-        break;
-    }
-
-    // console.log("Added",`\n{\n    "${name}":"${val}",\n} \n as ${t}`)
     console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('add'), 'is not yet ready for usage.')
   })
 

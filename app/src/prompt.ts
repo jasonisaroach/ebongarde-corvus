@@ -2,11 +2,11 @@ import * as inquirer from 'inquirer'
 import * as chalk from 'chalk'
 import * as _ from 'underscore.string'
 
-export default class Prompter{
-  name: any
+export default class Prompt {
+  name: string
   options: any
 
-  constructor(options:any) {
+  constructor(options: any) {
     this.name = options.name
   }
 
@@ -17,7 +17,7 @@ export default class Prompter{
         name: 'name',
         message: 'What would you like to call this application?',
         default: this.name,
-        validate: function (value: any) {
+        validate: function (value: string) {
           return _.isBlank(value) ? 'I need you to give me a name for this new app' : true
         }
       }, {
@@ -25,7 +25,7 @@ export default class Prompter{
         name: 'author',
         message: 'Who would you like to add as the author?',
         default: 'John Doe',
-        validate: function (value: any) {
+        validate: function (value: string) {
           return _.isBlank(value) ? 'I need you to give me a name for the author' : true
         }
       }, {
@@ -33,7 +33,7 @@ export default class Prompter{
         name: 'email',
         message: 'What would you like to add as the author email?',
         default: 'johndoe@gmail.com',
-        validate: function (value: any) {
+        validate: function (value: string) {
           return _.isBlank(value) ? 'I need you to give me an email for the author' : true
         }
       }, {
@@ -41,7 +41,7 @@ export default class Prompter{
         name: 'user',
         message: 'What is your GitHub username?',
         default: 'JohnDoe',
-        validate: function (value: any) {
+        validate: function (value: string) {
           return _.isBlank(value) ? 'I need you to give me a name for the author' : true
         }
       }, {
@@ -49,7 +49,7 @@ export default class Prompter{
         name: 'version',
         message: 'What version would you like to start off on?',
         default: '0.0.0',
-        validate: function (value: any) {
+        validate: function (value: string) {
           return _.isBlank(value) ? 'I need you to give me a starting version for this new app' : true
         }
       }, {
@@ -57,7 +57,7 @@ export default class Prompter{
         name: 'description',
         message: 'How should I describe this application?',
         default: 'An intriging application.',
-        validate: function (value: any) {
+        validate: function (value: string) {
           return _.isBlank(value) ? 'I need you to give me a description for this new app' : true
         }
       }, {
@@ -104,7 +104,7 @@ export default class Prompter{
     ]
   }
 
-  prompt(callback:any) {
+  promt(callback:any) {
     console.log(' ')
     console.log('  Hello, I\'m', chalk.cyan('CORVUS') + '!')
     console.log('  You\'re about to start a new', chalk.cyan('CORVUS'), 'application,')
@@ -116,4 +116,4 @@ export default class Prompter{
   }
 }
 
-module.exports = Prompter
+module.exports = Prompt

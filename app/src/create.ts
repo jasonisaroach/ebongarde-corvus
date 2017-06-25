@@ -5,21 +5,18 @@ import * as chalk from 'chalk'
 import * as ejs from 'ejs'
 import * as fs from 'fs'
 import * as _ from 'underscore.string'
-var ROOT = require('ebongarde-root')
-// var mkdir =  require('folder-structure-generator')
-var main = path.join(ROOT, '')
+import * as ROOT from 'ebongarde-root'
 
-var json = require('../../package.json')
 
 var $ = path.join
+var json = require($(ROOT, 'package.json'))
 
-var dateObj = new Date();
-var month = dateObj.getUTCMonth() + 1; //months from 1-12
-var day = dateObj.getUTCDate();
-var year = dateObj.getUTCFullYear();
+var dateObj = new Date()
+var month = dateObj.getUTCMonth() + 1
+var day = dateObj.getUTCDate()
+var year = dateObj.getUTCFullYear()
 
-var newdate = year + "/" + month + "/" + day;
-
+var currentDate = year + '.' + month + '.' + day
 
 function mkdir() {
   return fs.mkdirSync($.apply(this, arguments))
@@ -74,6 +71,8 @@ export default class Creator {
      * The current year, used for license creation
      */
     year: (new Date()).getFullYear(),
+
+    today: currentDate,
     /**
      * The current CORVUS operating version
      */
@@ -84,9 +83,9 @@ export default class Creator {
    */
   newApp() {
     var self = this
-    var Prompter = require('./prompter')
-    var prompter = new Prompter({name: this.defaults.name})
-    prompter.prompt(function (answers:any) {
+    var Prompt = require('./prompt')
+    var prompt = new Prompt({name: this.defaults.name})
+    prompt.prompt(function (answers:any) {
       self.defaults.name = answers.name.toLowerCase()
       self.defaults.author = answers.author
       self.defaults.email = answers.email
@@ -122,6 +121,7 @@ export default class Creator {
    */
   copy() {
     this.copyTpl('package.json', 'package.json', this.defaults)
+    this.copyTpl('CHANGELOG.md', 'CHANGELOG.md', this.defaults)
     this.copyTpl($('licenses', this.defaults.license), 'LICENSE', this.defaults)
   }
   /**
