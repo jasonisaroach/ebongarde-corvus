@@ -134,7 +134,7 @@ export default class Create {
    */
   install() {
     corvus('install', 'packages')
-    childProcess.spawnSync('npm', [ 'install > log 2>&1' ], {
+    childProcess.spawnSync('npm', [ 'install' ], {
       cwd: './' + this.name,
       shell: true,
       stdio: 'inherit'
