@@ -66,8 +66,8 @@ export default class Generator {
 
     } else if (type == "website") {
       corvus('info', 'Give me a moment to setup', type)
-
-      // this.website(frameworks)
+      
+      this.website(frameworks)
 
     } else if (type == "ionic") {
       corvus('info', 'is currently under development', type)
