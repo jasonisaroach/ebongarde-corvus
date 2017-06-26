@@ -115,6 +115,7 @@ export default class Create {
    * Copy all files and fill in the data
    */
   copy() {
+    this.copyTpl('.gitignore', '.gitignore')
     this.copyTpl('package.json', 'package.json', this.defaults)
     this.copyTpl('CHANGELOG.md', 'CHANGELOG.md', this.defaults)
     this.copyTpl($('licenses', this.defaults.license), 'LICENSE', this.defaults)

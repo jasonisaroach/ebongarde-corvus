@@ -81,7 +81,11 @@ export default class Generator {
   electron(frameworks: string[]) {
     // frameworks are to be imported as dependencies in package.json
     var self = this
+    // var stringToTest = '0.0.0'
+    // var regex = /[0-9]*.[0-9]*.[0-9]*/g
+    // if (stringToTest != regex) {
 
+    // }
     setImmediate(function create() {
       // Tell the user what operation is being fired
       corvus('info', 'Creating directories')
@@ -150,7 +154,6 @@ export default class Generator {
       self.copyTpl($_('script', 'publish'), $_('script', 'publish'))
       self.copyTpl($_('script', 'run.js'), $_('script', 'run.js'))
       self.copyTpl($_('script', 'start'), $_('script', 'start'))
-      self.copyTpl($_('.gitignore'), $_('.gitignore'))
       self.copyTpl($_('.gitmodules'), $_('.gitmodules'))
       self.copyTpl($_('.travis.yml'), $_('.travis.yml'))
       self.copyTpl($_('appveyor.yml'), $_('appveyor.yml'))
