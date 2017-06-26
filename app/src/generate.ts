@@ -6,33 +6,72 @@ import * as ejs from 'ejs'
 import * as fs from 'fs'
 import * as _ from 'underscore.string'
 import * as $ from 'jquery'
+import * as util from 'util'
 var ROOT = require('ebongarde-root')
 var corvus = require('./utils/core')
 var mkdir = require('./utils/mkdir')
+// const setImmediatePromise = util.promisify(setImmediate)
+var dateObj = new Date()
+var month = dateObj.getUTCMonth() + 1
+var day = dateObj.getUTCDate()
+var year = dateObj.getUTCFullYear()
+var currentDate = year + '.' + month + '.' + day
 
 var $_ = path.join
 var json = require($_(ROOT, 'package.json'))
-var name = json.name
 
 export default class Generator {
   readonly type: string
   readonly frameworks: string[]
 
+  defaults = {
+    /** 
+     * The name of the new application
+     */
+    name: json.name,
+    /**
+     * The given author name of the new application
+     */
+    author: json.author,
+    /**
+     * The GitHub account given by the user
+     */
+    user: json.user,
+    /**
+     * The starting version given by the user
+     */
+    version: json.version,
+    /**
+     * The descritpion for the new application
+     */
+    description: json.description,
+    /**
+     * The license chosen by user for the new application
+     */
+    license: json.license,
+    /**
+     * The current year, used for license creation
+     */
+    year: (new Date()).getFullYear(),
+
+    today: currentDate
+  }
+
   constructor(type:string, frameworks: string[]) {
     this.type = type
     if (type == "electron") {
-      corvus('info', 'Creating structure for', type)
+      corvus('info', 'Give me a moment to setup', type)
 
       this.electron(frameworks)
 
     } else if (type == "website") {
-      corvus('info', 'Creating structure for', type)
+      corvus('info', 'Give me a moment to setup', type)
 
       // this.website(frameworks)
 
     } else if (type == "ionic") {
       corvus('info', 'is currently under development', type)
-      // corvus('info', 'Creating structure for', type)
+      // corvus('info', 'Give me a moment to setup', type)
       // this.ionic(frameworks)
     } else {
       corvus('err', 'I do not currently support', type)
@@ -43,10 +82,9 @@ export default class Generator {
     // frameworks are to be imported as dependencies in package.json
     var self = this
 
-    // Tell the user what operation is being fired
-    corvus('info', 'Creating directories')
-
-    function create() {
+    setImmediate(function create() {
+      // Tell the user what operation is being fired
+      corvus('info', 'Creating directories')
       mkdir('.github')
       mkdir('.vscode')
       mkdir($_('app', 'src', 'crash', 'styles'))
@@ -65,19 +103,18 @@ export default class Generator {
       mkdir($_('docs', 'technical'))
       mkdir('script')
       mkdir('tslint-rules')
-    }
-    create()
-    // Tell the user what operation is being fired
-    corvus('info', 'Writing files')
+    })
 
-    setTimeout(function write() {
-      self.copyTpl($_('.github', 'ISSUE_TEMPLATE.md'), $_('.github', 'ISSUE_TEMPLATE.md'))
+    setImmediate(function write() {
+      // Tell the user what operation is being fired
+      corvus('info', 'Writing files')
+      self.copyTpl($_('.github', 'ISSUE_TEMPLATE.md'), $_('.github', 'ISSUE_TEMPLATE.md'), self.defaults)
       self.copyTpl($_('.vscode', 'extensions.json'), $_('.vscode', 'extensions.json'))
       self.copyTpl($_('.vscode', 'settings.json'), $_('.vscode', 'settings.json'))
       self.copyTpl($_('app', 'src', 'crash', 'styles', 'crash.scss'), $_('app', 'src', 'crash', 'styles', 'crash.scss'))
       self.copyTpl($_('app', 'src', 'crash', 'index.tsx'), $_('app', 'src', 'crash', 'index.tsx'))
       self.copyTpl($_('app', 'src', 'main-process', 'menu', 'index.ts'), $_('app', 'src', 'main-process', 'menu', 'index.ts'))
-      self.copyTpl($_('app', 'src', 'main-process', 'index.ts'), $_('app', 'src', 'main-process', 'index.ts'))
+      self.copyTpl($_('app', 'src', 'main-process', 'main.ts'), $_('app', 'src', 'main-process', 'main.ts'))
       self.copyTpl($_('app', 'src', 'shared-process', 'index.ts'), $_('app', 'src', 'shared-process', 'index.ts'))
       self.copyTpl($_('app', 'src', 'ui', 'index.tsx'), $_('app', 'src', 'ui', 'index.tsx'))
       self.copyTpl($_('app', 'static', 'error.html'), $_('app', 'static', 'error.html'))
@@ -91,7 +128,7 @@ export default class Generator {
       self.copyTpl($_('app', 'styles', '_ui.scss'), $_('app', 'styles', '_ui.scss'))
       self.copyTpl($_('app', 'styles', '_variables.scss'), $_('app', 'styles', '_variables.scss'))
       self.copyTpl($_('app', 'styles', '_vendor.scss'), $_('app', 'styles', '_vendor.scss'))
-      self.copyTpl($_('app', 'styles', '{appname}.scss'), $_('app', 'styles', name + ".scss"))
+      self.copyTpl($_('app', 'styles', '{appname}.scss'), $_('app', 'styles', json.name + ".scss"))
       self.copyTpl($_('app', 'package.json'), $_('app', 'package.json'))
       self.copyTpl($_('app', 'webpack.common.js'), $_('app', 'webpack.common.js'))
       self.copyTpl($_('app', 'webpack.development.js'), $_('app', 'webpack.development.js'))
@@ -117,14 +154,9 @@ export default class Generator {
       self.copyTpl($_('.gitmodules'), $_('.gitmodules'))
       self.copyTpl($_('.travis.yml'), $_('.travis.yml'))
       self.copyTpl($_('appveyor.yml'), $_('appveyor.yml'))
-    }, 1000)
-    corvus('install', 'packages')
-    childProcess.spawnSync('npm', [ 'install > log 2>&1' ], {
-      // cwd: './' + this.name,
-      shell: true,
-      stdio: 'inherit'
     })
-    setTimeout(() => {
+    setImmediate(() => {
+      corvus('install', 'packages')
       frameworks.forEach(framework => {
         corvus('framework', framework)
         childProcess.spawnSync('npm', [ 'install', '--save', framework ], {
@@ -132,7 +164,7 @@ export default class Generator {
           stdio: 'inherit'
         })
       })
-    }, 1500)
+    })
   }
 
   website(frameworks: string[]) {
@@ -174,7 +206,6 @@ export default class Generator {
     var template = $_(ROOT, 'app', 'templates', this.type, src)
     var destination = $_(process.cwd(), dest)
     var str = fs.readFileSync(template, 'utf8')
-
     fs.writeFileSync(destination, ejs.render(str, data))
     corvus('write', dest)
   }

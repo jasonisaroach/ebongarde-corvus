@@ -1,5 +1,6 @@
 {
   "name": "<%= name %>",
+  "user": "<%= user %>",
   "version": "<%= version %>",
   "description": "<%= description %>",
   "repository": {

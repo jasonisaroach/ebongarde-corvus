@@ -4,12 +4,12 @@
 
 # v0.8.0 (2017.6.21)
   - `NEW` - Added Electron template
-  - `NEW` - Added `generate electron` functionality **Framework Support: *enabled. expiremental as fuck. proceed with extreme caution***
-  - `NEW` - Added `generate website` functionality **Framework Support: *under developent***
+  - `NEW` - Added `generate electron` functionality **Framework Support: *enabled. expirimental as fuck. proceed with extreme caution***
+  - `NEW` - Added `generate website` functionality **Framework Support: *under development***
   - `IMPROVED` - Added `downloads` and `npm` badges
   - `IMPROVED` - CORVUS can now say your name when needed (*or wanted*) ;)!
   - `IMPROVED` - Moved license template files into a templates directory
-  - `IMPROVED` - Revamped CORVUS' speach to appear as less of a program
+  - `IMPROVED` - Revamped CORVUS' speech to appear as less of a program
   - `IMPROVED` - CORVUS is now a function
   - `IMPROVED` - Mkdir is an independant function
   - `FIXED` - TSC causing errors when running `npm i`

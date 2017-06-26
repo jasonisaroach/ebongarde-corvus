@@ -18,6 +18,9 @@ function corvus(type:string, info:string, mod?:string) {
     case "err":
       console.log(' ', chalk.bold.cyan('CORVUS'), chalk.bold.red(type.toUpperCase()+'!'), info, chalk.bold.magenta(mod))
       break
+    case "warn":
+      console.log(' ', chalk.bold.cyan('CORVUS'), chalk.bold.dim.yellow(type.toUpperCase()+'!'), info, chalk.bold.magenta(mod))
+      break
     default:
       console.log(' ', chalk.bold.cyan('CORVUS'), chalk.bold.green(type.toUpperCase()), info, chalk.bold.magenta(mod))
       break

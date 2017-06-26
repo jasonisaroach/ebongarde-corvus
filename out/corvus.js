@@ -36,12 +36,6 @@ program
     .description('Scaffolding')
     .action(function (type, frameworks) {
     task.generate(type, frameworks);
-    if (frameworks) {
-        frameworks.forEach(function (framework) {
-            console.log('<script src="https://test.' + framework + '.com">');
-        });
-    }
-    corvus('err', 'I do not yet support the command', 'generate|g');
 });
 program
     .command('revert')
