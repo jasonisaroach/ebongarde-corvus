@@ -5,7 +5,7 @@ import * as chalk from 'chalk'
 import * as ejs from 'ejs'
 import * as fs from 'fs'
 import * as _ from 'underscore.string'
-import * as ROOT from 'ebongarde-root'
+var ROOT = require('ebongarde-root')
 
 var $ = path.join
 var json = require($(ROOT,'package.json'))

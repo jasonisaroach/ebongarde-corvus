@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var program = require('commander');
 var task = require('./task');
 var json = require('../package.json');
-var chalk = require("chalk");
+var corvus = require('./core');
 program
     .version(json.version)
     .usage('<command> [options]');
@@ -20,7 +20,7 @@ program
     .description('Check dependencies.')
     .action(function () {
     // task.check()
-    console.error(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('check'), 'is not yet ready for usage.');
+    corvus('err', 'I do not yet support the command', 'check|c');
 });
 program
     .command('install')
@@ -28,7 +28,7 @@ program
     .description('Install dependencies.')
     .action(function () {
     task.install();
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('install'), 'is not yet ready for usage.');
+    corvus('err', 'I do not yet support the command', 'install|i');
 });
 program
     .command('generate <type> [frameworks...]')
@@ -41,7 +41,7 @@ program
             console.log('<script src="https://test.' + framework + '.com">');
         });
     }
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('generate'), 'is not yet ready for usage.');
+    corvus('err', 'I do not yet support the command', 'generate|g');
 });
 program
     .command('revert')
@@ -49,13 +49,13 @@ program
     .description('Revert to initial creation')
     .action(function () {
     task.revert();
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('revert'), 'is not yet ready for usage.');
+    corvus('err', 'I do not yet support the command', 'revert|r');
 });
 program
     .command('p <command>')
     .description('Git push')
     .action(function (command) {
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold(command), 'is not yet ready for usage.');
+    corvus('err', 'I do not yet support the git command', command);
 });
 program
     .command('add <type>')
@@ -63,7 +63,7 @@ program
     .description('Add a new field')
     .action(function (type) {
     task.add(type);
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('add'), 'is not yet ready for usage.');
+    corvus('err', 'I do not yet support the command', 'add|a');
 });
 program.parse(process.argv);
 if (!process.argv.slice(2).length) {

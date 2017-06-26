@@ -5,7 +5,10 @@ import * as chalk from 'chalk'
 import * as ejs from 'ejs'
 import * as fs from 'fs'
 import * as _ from 'underscore.string'
-import * as ROOT from 'ebongarde-root'
+
+var ROOT = require('ebongarde-root')
+var corvus = require('./utils/core')
+var mkdir = require('./utils/mkdir')
 
 var $ = path.join
 var json = require($(ROOT, 'package.json'))
@@ -16,11 +19,7 @@ var day = dateObj.getUTCDate()
 var year = dateObj.getUTCFullYear()
 var currentDate = year + '.' + month + '.' + day
 
-function mkdir() {
-  return fs.mkdirSync($.apply(this, arguments))
-}
-
-export default class Creator {
+export default class Create {
   readonly name: string
   readonly options: any
   /**
@@ -37,7 +36,7 @@ export default class Creator {
    * The default settings for a CORVUS application
    */
   defaults = {
-    /**
+    /** 
      * The name of the new application
      */
     name: 'corvusapp',
@@ -103,14 +102,13 @@ export default class Creator {
     this.link()
     this.install()
     var author = _.words(this.defaults.author)
-    console.log('\n' + chalk.cyan.bold('  CORVUS'), chalk.yellow.bold('INFO'), 'You\'ll have to',chalk.green.bold('cd'),`into your application manually and then call me from there. See you there, ${chalk.green(author[0])}!`,chalk.magenta.bold(':)'))
+    corvus('info', `You'll have to cd into ${chalk.bold.yellow(this.name)} manually and call me. See you there, ${chalk.bold.green(author[0])}!`, ':)')
   }
   /**
    * Create the app structure
    */
   create() {
-    console.log(' ', chalk.cyan.bold('CORVUS'), chalk.green.bold('CREATE'), `${this.name}/`)
-
+    corvus('create', `${this.name}/`)
     mkdir(this.name)
   }
   /**
@@ -125,7 +123,7 @@ export default class Creator {
    * Allow CORVUS to link himself to the project
    */
   link() {
-    console.log(' ', chalk.cyan.bold('CORVUS'), chalk.green.bold('ATTACH'), this.defaults.name)
+    corvus('attach', this.defaults.name)
     childProcess.spawnSync('npm', [ 'link', 'corvus' ], {
       cwd: './' + this.name,
       shell: true
@@ -135,12 +133,19 @@ export default class Creator {
    * Let CORVUS install the new application's dependencies (if any)
    */
   install() {
-    console.log(' ', chalk.cyan.bold('CORVUS'), chalk.green.bold('INSTALL'), 'packages')
-    childProcess.spawnSync('npm', [ 'install' ], {
+    corvus('install', 'packages')
+    childProcess.spawnSync('npm', [ 'install > log 2>&1' ], {
       cwd: './' + this.name,
       shell: true,
       stdio: 'inherit'
     })
+    
+    // var output = fs.readFileSync(`${this.name}/log`, 'utf-8')
+    // var content = /(--)\s([a-z]*-|_*[a-z])*(@)*([0-9].[0-9].)\w/g.exec(output)
+    // // content.exec(output)
+    // // var pkg = []
+    // // pkg.push(content)
+    // corvus('info', content)
   }
   /**
    * Allow CORVUS to grab template files and pump in the data he's acquired from the user
@@ -155,7 +160,7 @@ export default class Creator {
     var str = fs.readFileSync(template, 'utf8')
 
     fs.writeFileSync(destination, ejs.render(str, data))
-    console.log(' ', chalk.cyan.bold('CORVUS'), chalk.green.bold('WRITE'), dest)
+    corvus('write', dest)
   }
 }
-module.exports = Creator
+module.exports = Create

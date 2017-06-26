@@ -3,6 +3,7 @@ var program = require('commander')
 var task = require('./task')
 var json = require('../package.json')
 import * as chalk from 'chalk'
+var corvus = require('./core')
 
 program
   .version(json.version)
@@ -22,7 +23,7 @@ program
   .description('Check dependencies.')
   .action(() => {
     // task.check()
-    console.error(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('check'), 'is not yet ready for usage.')
+    corvus('err', 'I do not yet support the command', 'check|c')
   })
 
 program
@@ -31,7 +32,7 @@ program
   .description('Install dependencies.')
   .action(() => {
     task.install()
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('install'), 'is not yet ready for usage.')
+    corvus('err', 'I do not yet support the command', 'install|i')
   })
 
 program
@@ -45,7 +46,7 @@ program
         console.log('<script src="https://test.'+framework+'.com">');
       });
     }
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('generate'), 'is not yet ready for usage.')
+    corvus('err', 'I do not yet support the command', 'generate|g')
   })
 
 program
@@ -54,14 +55,14 @@ program
   .description('Revert to initial creation')
   .action(() => {
     task.revert()
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('revert'), 'is not yet ready for usage.')
+    corvus('err', 'I do not yet support the command', 'revert|r')
   })
 
 program
   .command('p <command>')
   .description('Git push')
   .action((command:string) => {
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold(command), 'is not yet ready for usage.')
+    corvus('err', 'I do not yet support the git command', command)
   })
 
 program
@@ -72,7 +73,7 @@ program
     
     task.add(type)
 
-    console.log(chalk.cyan.bold('CORVUS'), chalk.red.bold('ERR!'), chalk.magenta.bold('add'), 'is not yet ready for usage.')
+    corvus('err', 'I do not yet support the command', 'add|a')
   })
 
 program.parse(process.argv)

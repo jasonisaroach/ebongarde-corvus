@@ -5,57 +5,178 @@ import * as chalk from 'chalk'
 import * as ejs from 'ejs'
 import * as fs from 'fs'
 import * as _ from 'underscore.string'
-import * as ROOT from 'ebongarde-root'
+import * as $ from 'jquery'
+var ROOT = require('ebongarde-root')
+var corvus = require('./utils/core')
+var mkdir = require('./utils/mkdir')
 
-var $ = path.join
-var json = require($(ROOT, 'package.json'))
-
-function mkdir() {
-  return fs.mkdirSync($.apply(this, arguments))
-}
+var $_ = path.join
+var json = require($_(ROOT, 'package.json'))
+var name = json.name
 
 export default class Generator {
   readonly type: string
   readonly frameworks: string[]
 
   constructor(type:string, frameworks: string[]) {
+    this.type = type
     if (type == "electron") {
-      console.log(chalk.bold.cyan('CORVUS'), chalk.bold.yellow('INFO'), chalk.bold.magenta(type), 'selected')
+      corvus('info', 'Creating structure for', type)
 
-      // this.electron(frameworks)
+      this.electron(frameworks)
 
     } else if (type == "website") {
-      console.log(chalk.bold.cyan('CORVUS'), chalk.bold.yellow('INFO'), chalk.bold.magenta(type), 'selected')
+      corvus('info', 'Creating structure for', type)
 
       // this.website(frameworks)
 
     } else if (type == "ionic") {
-      // console.log(chalk.bold.cyan('CORVUS'), chalk.bold.yellow('INFO'), chalk.bold.magenta(type), 'selected')
-      console.error(chalk.bold.cyan('CORVUS'), chalk.bold.red('ERR!'), chalk.bold.magenta(type), 'is currently under development!')
-
+      corvus('info', 'is currently under development', type)
+      // corvus('info', 'Creating structure for', type)
       // this.ionic(frameworks)
     } else {
-      console.error(chalk.bold.cyan('CORVUS'), chalk.bold.red('ERR!'), chalk.bold.magenta(`"${type}"`), 'is not yet supported!')
+      corvus('err', 'I do not currently support', type)
     }
   }
 
   electron(frameworks: string[]) {
     // frameworks are to be imported as dependencies in package.json
-    // mkdir(this.type)
+    var self = this
+
+    // Tell the user what operation is being fired
+    corvus('info', 'Creating directories')
+
+    function create() {
+      mkdir('.github')
+      mkdir('.vscode')
+      mkdir($_('app', 'src', 'crash', 'styles'))
+      mkdir($_('app', 'src', 'lib'))
+      mkdir($_('app', 'src', 'main-process', 'menu'))
+      mkdir($_('app', 'src', 'models'))
+      mkdir($_('app', 'src', 'shared-process'))
+      mkdir($_('app', 'src', 'ui'))
+      mkdir($_('app', 'static', 'common'))
+      mkdir($_('app', 'static', 'logos'))
+      mkdir($_('app', 'styles', 'mixins'))
+      mkdir($_('app', 'styles', 'ui'))
+      mkdir($_('app', 'test'))
+      mkdir($_('docs', 'contributing'))
+      mkdir($_('docs', 'process'))
+      mkdir($_('docs', 'technical'))
+      mkdir('script')
+      mkdir('tslint-rules')
+    }
+    create()
+    // Tell the user what operation is being fired
+    corvus('info', 'Writing files')
+
+    setTimeout(function write() {
+      self.copyTpl($_('.github', 'ISSUE_TEMPLATE.md'), $_('.github', 'ISSUE_TEMPLATE.md'))
+      self.copyTpl($_('.vscode', 'extensions.json'), $_('.vscode', 'extensions.json'))
+      self.copyTpl($_('.vscode', 'settings.json'), $_('.vscode', 'settings.json'))
+      self.copyTpl($_('app', 'src', 'crash', 'styles', 'crash.scss'), $_('app', 'src', 'crash', 'styles', 'crash.scss'))
+      self.copyTpl($_('app', 'src', 'crash', 'index.tsx'), $_('app', 'src', 'crash', 'index.tsx'))
+      self.copyTpl($_('app', 'src', 'main-process', 'menu', 'index.ts'), $_('app', 'src', 'main-process', 'menu', 'index.ts'))
+      self.copyTpl($_('app', 'src', 'main-process', 'index.ts'), $_('app', 'src', 'main-process', 'index.ts'))
+      self.copyTpl($_('app', 'src', 'shared-process', 'index.ts'), $_('app', 'src', 'shared-process', 'index.ts'))
+      self.copyTpl($_('app', 'src', 'ui', 'index.tsx'), $_('app', 'src', 'ui', 'index.tsx'))
+      self.copyTpl($_('app', 'static', 'error.html'), $_('app', 'static', 'error.html'))
+      self.copyTpl($_('app', 'static', 'index.html'), $_('app', 'static', 'index.html'))
+      self.copyTpl($_('app', 'styles', 'ui', '_app_menu_bar.scss'), $_('app', 'styles', 'ui', '_app_menu_bar.scss'))
+      self.copyTpl($_('app', 'styles', 'ui', '_focus.scss'), $_('app', 'styles', 'ui', '_focus.scss'))
+      self.copyTpl($_('app', 'styles', 'ui', '_title-bar.scss'), $_('app', 'styles', 'ui', '_title-bar.scss'))
+      self.copyTpl($_('app', 'styles', '_globals.scss'), $_('app', 'styles', '_globals.scss'))
+      self.copyTpl($_('app', 'styles', '_mixins.scss'), $_('app', 'styles', '_mixins.scss'))
+      self.copyTpl($_('app', 'styles', '_type.scss'), $_('app', 'styles', '_type.scss'))
+      self.copyTpl($_('app', 'styles', '_ui.scss'), $_('app', 'styles', '_ui.scss'))
+      self.copyTpl($_('app', 'styles', '_variables.scss'), $_('app', 'styles', '_variables.scss'))
+      self.copyTpl($_('app', 'styles', '_vendor.scss'), $_('app', 'styles', '_vendor.scss'))
+      self.copyTpl($_('app', 'styles', '{appname}.scss'), $_('app', 'styles', name + ".scss"))
+      self.copyTpl($_('app', 'package.json'), $_('app', 'package.json'))
+      self.copyTpl($_('app', 'webpack.common.js'), $_('app', 'webpack.common.js'))
+      self.copyTpl($_('app', 'webpack.development.js'), $_('app', 'webpack.development.js'))
+      self.copyTpl($_('app', 'webpack.production.js'), $_('app', 'webpack.production.js'))
+      self.copyTpl($_('docs', 'contributing', 'setup.md'), $_('docs', 'contributing', 'setup.md'))
+      self.copyTpl($_('docs', 'contributing', 'styleguide.md'), $_('docs', 'contributing', 'styleguide.md'))
+      self.copyTpl($_('docs', 'contributing', 'tooling.md'), $_('docs', 'contributing', 'tooling.md'))
+      self.copyTpl($_('docs', 'contributing', 'troubleshooting.md'), $_('docs', 'contributing', 'troubleshooting.md'))
+      self.copyTpl($_('docs', 'process', 'issue-triage.md'), $_('docs', 'contributing', 'issue-triage.md'))
+      self.copyTpl($_('docs', 'process', 'releasing-updates.md'), $_('docs', 'contributing', 'releasing-updates.md'))
+      self.copyTpl($_('docs', 'process', 'reviews.md'), $_('docs', 'contributing', 'reviews.md'))
+      self.copyTpl($_('docs', 'process', 'roadmap.md'), $_('docs', 'contributing', 'roadmap.md'))
+      self.copyTpl($_('docs', 'installation.md'), $_('docs', 'installation.md'))
+      self.copyTpl($_('docs', 'README.md'), $_('docs', 'README.md'))
+      self.copyTpl($_('script', 'build'), $_('script', 'build'))
+      self.copyTpl($_('script', 'debug'), $_('script', 'debug'))
+      self.copyTpl($_('script', 'dist-info.js'), $_('script', 'dist-info.js'))
+      self.copyTpl($_('script', 'package'), $_('script', 'package'))
+      self.copyTpl($_('script', 'publish'), $_('script', 'publish'))
+      self.copyTpl($_('script', 'run.js'), $_('script', 'run.js'))
+      self.copyTpl($_('script', 'start'), $_('script', 'start'))
+      self.copyTpl($_('.gitignore'), $_('.gitignore'))
+      self.copyTpl($_('.gitmodules'), $_('.gitmodules'))
+      self.copyTpl($_('.travis.yml'), $_('.travis.yml'))
+      self.copyTpl($_('appveyor.yml'), $_('appveyor.yml'))
+    }, 1000)
+    corvus('install', 'packages')
+    childProcess.spawnSync('npm', [ 'install > log 2>&1' ], {
+      // cwd: './' + this.name,
+      shell: true,
+      stdio: 'inherit'
+    })
+    setTimeout(() => {
+      frameworks.forEach(framework => {
+        corvus('framework', framework)
+        childProcess.spawnSync('npm', [ 'install', '--save', framework ], {
+          shell: true,
+          stdio: 'inherit'
+        })
+      })
+    }, 1500)
   }
 
   website(frameworks: string[]) {
     // frameworks are to be imported as <link> tags
+    var self = this
+    // create json file that will tell ejs exactly what kinds of tags to add.
+    
+    corvus('info', 'Creating directories')
 
-    // create json file taht will tell ejs exactly what kinds of tags to add.
+    function create() {
+      mkdir('img')
+      mkdir($_('scripts', 'vendor'))
+      mkdir($_('styles'))
+    }
 
+    corvus('info', 'Writing files')
+
+    setTimeout(function write() {
+      self.copyTpl($_('img', 'apple-touch-icon.png'), $_('img', 'apple-touch-icon.png'))
+      self.copyTpl($_('styles', '{appname}.scss'), $_('styles', `${name}.scss`))
+    }, 1000)
     // <% frameworks.forEach(framework => { %>
     //   <%= framework %>
-    // <% }); %>
+    // <% }) %>
   }
 
   ionic(frameworks: string[]) {
 
+  }
+
+  /**
+   * Allow CORVUS to grab template files and pump in the data he's acquired from the user
+   * @param src The file acting as a template
+   * @param dest The location of the completed template
+   * @param data The data acquired by CORVUS from the user
+   */
+  copyTpl(src?:any, dest?:any, data?:any) {
+    if (typeof data === 'undefined') { data = {} }
+    var template = $_(ROOT, 'app', 'templates', this.type, src)
+    var destination = $_(process.cwd(), dest)
+    var str = fs.readFileSync(template, 'utf8')
+
+    fs.writeFileSync(destination, ejs.render(str, data))
+    corvus('write', dest)
   }
 }
 module.exports = Generator

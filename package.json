@@ -36,13 +36,16 @@
     "ejs": "^2.5.6",
     "folder-structure-generator": "^1.0.3",
     "inquirer": "^3.1.1",
+    "jquery": "^3.2.1",
     "mkdirp": "^0.5.1",
     "underscore.string": "^3.3.4"
   },
   "devDependencies": {
-    "@types/inquirer": "0.0.35",
     "@types/chalk": "^0.4.31",
     "@types/ejs": "^2.3.33",
+    "@types/inquirer": "0.0.35",
+    "@types/jquery": "^2.0.46",
+    "@types/mkdirp": "^0.3.29",
     "@types/node": "^7.0.31",
     "@types/underscore.string": "0.0.30"
   }
