@@ -105,7 +105,7 @@ export default class Generator {
       mkdir('tslint-rules')
     })
 
-    setImmediate(function write() {
+    setTimeout(function write() {
       // Tell the user what operation is being fired
       corvus('info', 'Writing files')
       self.copyTpl($_('.github', 'ISSUE_TEMPLATE.md'), $_('.github', 'ISSUE_TEMPLATE.md'), self.defaults)
@@ -154,7 +154,7 @@ export default class Generator {
       self.copyTpl($_('.gitmodules'), $_('.gitmodules'))
       self.copyTpl($_('.travis.yml'), $_('.travis.yml'))
       self.copyTpl($_('appveyor.yml'), $_('appveyor.yml'))
-    })
+    }, 2000)
     setImmediate(() => {
       corvus('install', 'packages')
       frameworks.forEach(framework => {
