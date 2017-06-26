@@ -141,12 +141,12 @@ export default class Create {
       stdio: 'inherit'
     })
     
-    // var output = fs.readFileSync(`${this.name}/log`, 'utf-8')
-    // var content = /(--)\s([a-z]*-|_*[a-z])*(@)*([0-9].[0-9].)\w/g.exec(output)
-    // // content.exec(output)
-    // // var pkg = []
-    // // pkg.push(content)
-    // corvus('info', content)
+    var output = fs.readFileSync(`${this.name}/log`, 'utf-8')
+    var content = /(--)\s([a-z]*-|_*[a-z])*(@)*([0-9].[0-9].)\w/g.exec(output)
+    // content.exec(output)
+    // var pkg = []
+    // pkg.push(content)
+    corvus('info', content)
   }
   /**
    * Allow CORVUS to grab template files and pump in the data he's acquired from the user

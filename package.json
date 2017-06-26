@@ -47,7 +47,6 @@
     "@types/jquery": "^2.0.46",
     "@types/mkdirp": "^0.3.29",
     "@types/node": "^7.0.31",
-    "@types/underscore.string": "0.0.30",
-    "tsc": "^1.20150623.0"
+    "@types/underscore.string": "0.0.30"
   }
 }

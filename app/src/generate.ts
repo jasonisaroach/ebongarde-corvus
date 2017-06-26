@@ -81,7 +81,11 @@ export default class Generator {
   electron(frameworks: string[]) {
     // frameworks are to be imported as dependencies in package.json
     var self = this
+    var stringToTest = '0.0.0'
+    var regex = /[0-9]*.[0-9]*.[0-9]*/g
+    if (stringToTest != regex) {
 
+    }
     setImmediate(function create() {
       // Tell the user what operation is being fired
       corvus('info', 'Creating directories')
