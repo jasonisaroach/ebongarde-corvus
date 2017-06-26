@@ -150,7 +150,6 @@ export default class Generator {
       self.copyTpl($_('script', 'publish'), $_('script', 'publish'))
       self.copyTpl($_('script', 'run.js'), $_('script', 'run.js'))
       self.copyTpl($_('script', 'start'), $_('script', 'start'))
-      self.copyTpl($_('.gitignore'), $_('.gitignore'))
       self.copyTpl($_('.gitmodules'), $_('.gitmodules'))
       self.copyTpl($_('.travis.yml'), $_('.travis.yml'))
       self.copyTpl($_('appveyor.yml'), $_('appveyor.yml'))
